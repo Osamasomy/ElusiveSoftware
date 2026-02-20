@@ -1,0 +1,743 @@
+:root {
+    --bg: #07080B;
+    --panel: #0C0E13;
+    --panel2: #0A0C10;
+    --stroke: rgba(255, 255, 255, .10);
+    --stroke2: rgba(255, 255, 255, .07);
+    --text: #E9EEFF;
+    --muted: rgba(233, 238, 255, .68);
+    --muted2: rgba(233, 238, 255, .45);
+    --accent: #7C5CFF;
+    --ok: #28ff88;
+    --warn: #ffb020;
+    --danger: #ff3d6e;
+    --shadow: 0 22px 70px rgba(0, 0, 0, .55);
+    --radius: 18px;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sans: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--bg);
+    /* ключевое: разрешаем скролл */
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* на iOS фикс “прыгающего” 100vh */
+    -webkit-overflow-scrolling: touch;
+}
+
+.bg-lines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(255, 255, 255, .04) 1px, transparent 1px) 0 0 / 44px 44px, linear-gradient(to bottom, rgba(255, 255, 255, .025) 1px, transparent 1px) 0 0 / 44px 44px;
+    opacity: .35;
+    /* на мобиле маска может давать “обрез” визуально — убираем ниже media */
+    mask-image: radial-gradient(900px 480px at 50% 35%, #000 55%, transparent 85%);
+}
+
+.grain {
+    pointer-events: none;
+    position: fixed;
+    inset: -30%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+    transform: rotate(8deg);
+    mix-blend-mode: overlay;
+    opacity: .18;
+}
+
+
+/* было center + height:100% — на мобиле это плохо.
+Делаем нормальный поток. */
+
+.wrap {
+    position: relative;
+    min-height: 100%;
+    display: block;
+    padding: 22px 14px;
+}
+
+.shell {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.25fr .75fr;
+    gap: 14px;
+    align-items: start;
+}
+
+
+/* планшет/мобила: 1 колонка, порядок: сначала левый, потом правый */
+
+@media (max-width: 920px) {
+    .shell {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    background: rgba(12, 14, 19, .92);
+    border: 1px solid var(--stroke);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+}
+
+.card .inner {
+    position: relative;
+    z-index: 2;
+}
+
+.chrome {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    background: rgba(10, 12, 16, .78);
+    border-bottom: 1px solid var(--stroke2);
+    font-family: var(--mono);
+    color: var(--muted2);
+    font-size: 12px;
+}
+
+.dots {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .10);
+    border: 1px solid rgba(255, 255, 255, .10);
+}
+
+.dot.red {
+    background: rgba(255, 61, 110, .22);
+    border-color: rgba(255, 61, 110, .25);
+}
+
+.dot.yel {
+    background: rgba(255, 176, 32, .18);
+    border-color: rgba(255, 176, 32, .20);
+}
+
+.dot.grn {
+    background: rgba(40, 255, 136, .18);
+    border-color: rgba(40, 255, 136, .20);
+}
+
+.topRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px;
+    border-bottom: 1px solid var(--stroke2);
+}
+
+
+/* мобила: делаем вертикально, чтобы не ломалось */
+
+@media (max-width: 520px) {
+    .topRow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid var(--stroke);
+    overflow: hidden;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.btext {
+    min-width: 0;
+}
+
+.bname {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bsub {
+    margin-top: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@media (max-width: 520px) {
+    .badges {
+        justify-content: flex-start;
+    }
+}
+
+.badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--stroke2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    position: relative;
+    /* нужно для позиционирования */
+}
+
+.beacon {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--ok);
+    opacity: .75;
+    box-shadow: 0 0 6px rgba(40, 255, 136, .35);
+    transform: scale(1);
+    will-change: opacity, transform, box-shadow;
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 14px;
+    border-bottom: 1px solid var(--stroke2);
+}
+
+@media (max-width: 620px) {
+    .grid2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.mini {
+    border: 1px solid var(--stroke2);
+    border-radius: 14px;
+    background: rgba(10, 12, 16, .60);
+    padding: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.mini .t {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.mini .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+}
+
+.mini .val {
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.mini .foot {
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.bars {
+    display: flex;
+    gap: 6px;
+    align-items: flex-end;
+    height: 44px;
+}
+
+.bars i {
+    display: block;
+    width: 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, .10);
+    border: 1px solid rgba(255, 255, 255, .10);
+    transform-origin: bottom;
+    animation: bar 1.2s ease-in-out infinite;
+}
+
+.bars i:nth-child(1) {
+    height: 18px;
+    animation-delay: .00s
+}
+
+.bars i:nth-child(2) {
+    height: 28px;
+    animation-delay: .08s
+}
+
+.bars i:nth-child(3) {
+    height: 14px;
+    animation-delay: .16s
+}
+
+.bars i:nth-child(4) {
+    height: 34px;
+    animation-delay: .24s
+}
+
+.bars i:nth-child(5) {
+    height: 22px;
+    animation-delay: .32s
+}
+
+.bars i:nth-child(6) {
+    height: 30px;
+    animation-delay: .40s
+}
+
+@keyframes bar {
+    0%,
+    100% {
+        transform: scaleY(.92);
+        opacity: .9
+    }
+    50% {
+        transform: scaleY(1.08);
+        opacity: 1
+    }
+}
+
+.ringWrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ring {
+    width: 54px;
+    height: 54px;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, .10);
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.ring:before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 999px;
+    border: 3px solid rgba(124, 92, 255, .55);
+    clip-path: polygon(50% 50%, 100% 0, 100% 100%);
+    animation: spin 1.35s linear infinite;
+    opacity: .9;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ringText {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+    line-height: 1.25;
+}
+
+.loaderArea {
+    padding: 14px;
+}
+
+.progressTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-family: var(--mono);
+    color: var(--muted2);
+    font-size: 12px;
+}
+
+.stage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+.spin {
+    width: 14px;
+    height: 14px;
+    border-radius: 99px;
+    border: 2px solid rgba(255, 255, 255, .16);
+    border-top-color: rgba(255, 255, 255, .55);
+    animation: rot .9s linear infinite;
+    flex: 0 0 auto;
+}
+
+@keyframes rot {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.bar {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .10);
+    overflow: hidden;
+    position: relative;
+}
+
+.fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: rgba(124, 92, 255, .9);
+    transition: width .12s linear;
+    position: relative;
+}
+
+.scan {
+    position: absolute;
+    top: -10px;
+    width: 70px;
+    height: 30px;
+    background: rgba(255, 255, 255, .16);
+    filter: blur(10px);
+    opacity: .55;
+    transform: translateX(-120px);
+    animation: scan 1.2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateX(-120px);
+    }
+    100% {
+        transform: translateX(760px);
+    }
+}
+
+.row3 {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+@media (max-width: 720px) {
+    .row3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.chip {
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(10, 12, 16, .60);
+    border: 1px solid var(--stroke2);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.chip b {
+    color: rgba(233, 238, 255, .86);
+    font-weight: 600;
+}
+
+.term {
+    margin-top: 12px;
+    border-radius: 14px;
+    border: 1px solid var(--stroke2);
+    background: rgba(10, 12, 16, .55);
+    overflow: hidden;
+}
+
+.termHead {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--stroke2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+}
+
+.termBody {
+    padding: 10px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(233, 238, 255, .78);
+    line-height: 1.55;
+    max-height: 160px;
+    overflow: auto;
+    /* лог скроллится внутри */
+}
+
+.line {
+    display: flex;
+    gap: 10px;
+}
+
+.ts {
+    color: rgba(233, 238, 255, .38);
+    width: 62px;
+    flex: 0 0 auto;
+}
+
+.lvl {
+    width: 58px;
+    flex: 0 0 auto;
+    color: rgba(233, 238, 255, .50);
+}
+
+.lvl.ok {
+    color: rgba(40, 255, 136, .85);
+}
+
+.lvl.w {
+    color: rgba(255, 176, 32, .90);
+}
+
+.lvl.e {
+    color: rgba(255, 61, 110, .90);
+}
+
+.msg {
+    color: rgba(233, 238, 255, .78);
+}
+
+.right {
+    padding: 16px;
+}
+
+.stack {
+    display: grid;
+    gap: 10px;
+}
+
+.metric {
+    padding: 12px 12px 10px;
+    border-radius: 16px;
+    background: rgba(10, 12, 16, .65);
+    border: 1px solid var(--stroke2);
+}
+
+.metricTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.metricLabel {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted2);
+}
+
+.metricValue {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    color: rgba(233, 238, 255, .90);
+}
+
+.miniProg {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .10);
+    overflow: hidden;
+}
+
+.miniProg i {
+    display: block;
+    height: 100%;
+    width: 50%;
+    background: rgba(255, 255, 255, .16);
+    border-radius: 999px;
+    animation: shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-70%);
+        opacity: .55;
+    }
+    50% {
+        transform: translateX(40%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(130%);
+        opacity: .55;
+    }
+}
+
+.files {
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(10, 12, 16, .65);
+    border: 1px solid var(--stroke2);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(233, 238, 255, .75);
+}
+
+.file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .07);
+    background: rgba(255, 255, 255, .03);
+    margin-top: 8px;
+}
+
+.file:first-child {
+    margin-top: 0;
+}
+
+.tag {
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .10);
+    color: rgba(233, 238, 255, .70);
+    background: rgba(255, 255, 255, .04);
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.note {
+    margin-top: 10px;
+    padding: 12px 12px;
+    border-radius: 16px;
+    background: rgba(10, 12, 16, .65);
+    border: 1px solid var(--stroke2);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.kbd {
+    font-family: var(--mono);
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .10);
+    color: rgba(233, 238, 255, .86);
+    display: inline-block;
+    max-width: 100%;
+}
+
+
+/* на мобиле уменьшаем тени и фон-эффекты */
+
+@media (max-width: 520px) {
+    .card {
+        box-shadow: 0 16px 44px rgba(0, 0, 0, .55);
+    }
+    .bg-lines {
+        mask-image: none;
+        opacity: .22;
+    }
+    .scan {
+        opacity: .42;
+    }
+    .chrome {
+        font-size: 11px;
+    }
+}
+
+
+/* disable motion if user prefers */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

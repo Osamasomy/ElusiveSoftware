@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>ELUSIVE PROJECT</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="source/css/style.css">
+</head>
+
+<body>
+    <div class="bg-lines"></div>
+    <div class="grain"></div>
+
+    <div class="wrap">
+        <div class="shell">
+
+            <section class="card">
+                <div class="chrome">
+                    <div class="dots">
+                        <span class="dot red"></span><span class="dot yel"></span><span class="dot grn"></span>
+                    </div>
+                    <div id="chromeRight">preflight / gateway</div>
+                </div>
+
+                <div class="inner">
+                    <div class="topRow">
+                        <div class="brand">
+                            <div class="logo" id="logoBox">
+                                <img id="brandLogo" src="./logot.png" alt="logo" onerror="this.style.display='none'; document.getElementById('logoBox').style.background='rgba(255,255,255,.06)';" />
+                            </div>
+                            <div class="btext">
+                                <p class="bname" id="brandName">ELUSIVE PROJECT</p>
+                                <div class="bsub" id="brandTagline">verified • secured • ready</div>
+                            </div>
+                        </div>
+
+                        <div class="badges">
+                            <div class="badge"><span class="beacon"></span><span id="liveStatus">online</span></div>
+                            <div class="badge">build <span id="buildId">—</span></div>
+                            <div class="badge">sess <span id="sessionId">—</span></div>
+                        </div>
+                    </div>
+
+                    <div class="grid2">
+                        <div class="mini">
+                            <div class="t">
+                                <div class="label">Traffic</div>
+                                <div class="val" id="mOnline">—</div>
+                            </div>
+                            <div class="bars" aria-hidden="true">
+                                <i></i><i></i><i></i><i></i><i></i><i></i>
+                            </div>
+                            <div class="foot">
+                                <span id="mOnlineHint">stable</span>
+                                <span class="tag">live</span>
+                            </div>
+                        </div>
+
+                        <div class="mini">
+                            <div class="t">
+                                <div class="label">Validation</div>
+                                <div class="val"><span id="mRating">—</span>/5</div>
+                            </div>
+                            <div class="ringWrap">
+                                <div class="ring" aria-hidden="true"></div>
+                                <div class="ringText" id="ringText">checksum • policy • mirror</div>
+                            </div>
+                            <div class="foot">
+                                <span id="mRatingHint">verified</span>
+                                <span class="tag">ok</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="loaderArea">
+                        <div class="progressTop">
+                            <div class="stage"><span class="spin"></span><span id="stageText">initializing</span></div>
+                            <div><span id="pct">0</span>%</div>
+                        </div>
+                        <div class="bar">
+                            <div class="fill" id="fill"><span class="scan"></span></div>
+                        </div>
+
+                        <div class="row3">
+                            <div class="chip"><span>mirror</span><b id="chipMirror">auto</b></div>
+                            <div class="chip"><span>latency</span><b id="chipLatency">—</b></div>
+                            <div class="chip"><span>route</span><b id="chipRoute">—</b></div>
+                        </div>
+
+                        <div class="term">
+                            <div class="termHead">
+                                <span>preflight log</span>
+                                <span id="termHint">streaming</span>
+                            </div>
+                            <div class="termBody" id="termBody"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="card">
+                <div class="chrome">
+                    <div class="dots">
+                        <span class="dot red"></span><span class="dot yel"></span><span class="dot grn"></span>
+                    </div>
+                    <div>metrics / artifacts</div>
+                </div>
+
+                <div class="inner right">
+                    <div class="stack">
+                        <div class="metric">
+                            <div class="metricTop">
+                                <div class="metricLabel">Total downloads</div>
+                                <div class="metricValue" id="mDownloads">—</div>
+                            </div>
+                            <div class="miniProg"><i></i></div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metricTop">
+                                <div class="metricLabel">Queue status</div>
+                                <div class="metricValue" id="mQueue">—</div>
+                            </div>
+                            <div class="miniProg"><i></i></div>
+                        </div>
+
+                        <div class="files">
+                            <div class="file"><span>payload.bin</span><span class="tag" id="f1">pending</span></div>
+                            <div class="file"><span>manifest.json</span><span class="tag" id="f2">pending</span></div>
+                            <div class="file"><span>signature.sig</span><span class="tag" id="f3">pending</span></div>
+                        </div>
+                        <div class="note" style="display: flex;align-items: center;">
+                            <img src="vt.png" style="margin-right: 5px; height: 20px;width: auto;" alt=""> Virus Total: <span style="margin-left: 10px; display: flex;align-items: center;" class="kbd">verified
+                                 <svg style="margin-left:5px" width="14px" height="14px" viewBox="0 0 36.00 36.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet" fill="#000000" stroke="#000000" stroke-width="0.00036"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#77B255" d="M36 32a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v28z"></path><path fill="#FFF" d="M29.28 6.362a2.502 2.502 0 0 0-3.458.736L14.936 23.877l-5.029-4.65a2.5 2.5 0 1 0-3.394 3.671l7.209 6.666c.48.445 1.09.665 1.696.665c.673 0 1.534-.282 2.099-1.139c.332-.506 12.5-19.27 12.5-19.27a2.5 2.5 0 0 0-.737-3.458z"></path></g></svg></spanм>
+                        </div>
+                        <div class="note" style="display: none;">
+                            fallback: <span class="kbd" id="manualLink">…</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+    <script>
+        (function() {
+            const beacon = document.querySelector('.beacon');
+            if (!beacon) return;
+
+            let t = 0;
+
+            function animate() {
+
+                t += 0.03; // скорость (меньше = медленнее)
+
+                const s = (Math.sin(t) + 1) / 2;
+
+
+                const opacity = 0.55 + s * 0.35;
+                const scale = 1.0 + s * 0.25;
+                const glow = 4 + s * 10;
+
+                beacon.style.opacity = opacity.toFixed(2);
+                beacon.style.transform = `scale(${scale.toFixed(2)})`;
+                beacon.style.boxShadow = `0 0 ${glow}px rgba(40,255,136,.45)`;
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        })();
+    </script>
+
+
+    <script src="source/js/script.js"></script>
+</body>
+
+</html>
